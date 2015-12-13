@@ -1,6 +1,6 @@
 'use strict';
 
-const Pipe = require('./pipe');
+const Pipe = require('../lib/pipe');
 const expect = require('chai').expect;
 
 @Pipe

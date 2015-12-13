@@ -1,6 +1,6 @@
 'use strict';
 
-const Service = require('./service');
+const Service = require('../lib/service');
 const expect = require('chai').expect;
 
 @Service
