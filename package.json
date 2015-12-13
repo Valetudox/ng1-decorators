@@ -19,6 +19,9 @@
     "url": "https://github.com/Valetudox/ng1-decorators/issues"
   },
   "homepage": "https://github.com/Valetudox/ng1-decorators#readme",
+  "dependencies": {
+    "get-parameter-names": "^0.2.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.2.0",
     "babel-plugin-transform-class-properties": "^6.3.13",
@@ -31,7 +34,6 @@
     "babel-preset-stage-3": "^6.3.13",
     "babel-register": "^6.3.13",
     "chai": "^3.4.1",
-    "get-parameter-names": "^0.2.0",
     "mocha": "^2.3.4"
   }
 }
