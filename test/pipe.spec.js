@@ -25,7 +25,7 @@ describe('Pipe', function() {
   });
 
 
-  describe('decorated @create', function() {
+  describe('decorated #create', function() {
 
     it('should give back an array', function() {
       expect(DummyClass.create()).to.be.instanceof(Array);
