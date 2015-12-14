@@ -8,6 +8,7 @@ class DummyClass {
 
   constructor(first, second, third) {
     this._values = [first, second, third];
+    this.transform = this.transform.bind(this);
   }
 
 
@@ -43,17 +44,10 @@ describe('Pipe', function() {
     });
 
 
-    it(`should give back the class's transform method which always run in the instance's scope`, function() {
-      let transformFactory = DummyClass.create().pop();
-      let transform = transformFactory('1', '2', '3');
-      expect(transform.call(null, 'abc')).to.have.string('abc');
-    });
-
-
     it(`should give back the class's transform method which always got the original dependencies in the constructor`, function() {
       let transformFactory = DummyClass.create().pop();
       let transform = transformFactory('1', '2', '3');
-      expect(transform.call(null, 'abc')).to.eql('abc1.2.3');
+      expect(transform('abc')).to.eql('abc1.2.3');
     });
 
   });
