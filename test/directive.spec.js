@@ -46,7 +46,20 @@ describe('Directive', function() {
 
 
         it('should be undefined if not given', function() {
-          expect(DummyClassWithoutTemplate.create()()).to.not.have.property('template');
+          expect(DummyClassWithoutProperties.create()()).to.not.have.property('template');
+        });
+
+      });
+
+      describe('@require', function() {
+
+        it('should be the given one', function() {
+          expect(DummyClass.create()().require).to.eql('dependent');
+        });
+
+
+        it('should be undefined if not given', function() {
+          expect(DummyClassWithoutProperties.create()()).to.not.have.property('require');
         });
 
       });
@@ -125,6 +138,7 @@ describe('Directive', function() {
   transclude: {
     slot1: 'slot1'
   },
+  require: 'dependent',
   link: (input) => input + 1,
   replace: true
 })
@@ -141,8 +155,6 @@ class DummyClass {
 
 }
 
-@Directive({
-  restrict: 'E'
-})
-class DummyClassWithoutTemplate {
+@Directive({})
+class DummyClassWithoutProperties {
 }
