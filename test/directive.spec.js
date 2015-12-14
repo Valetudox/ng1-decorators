@@ -32,17 +32,12 @@ describe('Directive', function() {
 
   describe('decorated #create', function() {
 
-    it('should give back an object', function() {
-      expect(DummyClass.create()).to.be.instanceof(Object);
-    });
-
-
     describe('response', function() {
 
       describe('@controllerAs', function() {
 
         it('should be `ctrl`', function() {
-          expect(DummyClass.create().controllerAs).to.eql('ctrl');
+          expect(DummyClass.create()().controllerAs).to.eql('ctrl');
         });
 
       });
@@ -50,7 +45,7 @@ describe('Directive', function() {
       describe('@bindToController', function() {
 
         it('should be true', function() {
-          expect(DummyClass.create().bindToController).to.be.true;
+          expect(DummyClass.create()().bindToController).to.be.true;
         });
 
       });
@@ -58,7 +53,7 @@ describe('Directive', function() {
       describe('@restrict', function() {
 
         it('should be the given one', function() {
-          expect(DummyClass.create().restrict).to.eql('E');
+          expect(DummyClass.create()().restrict).to.eql('E');
         });
 
       });
@@ -66,7 +61,7 @@ describe('Directive', function() {
       describe('@template', function() {
 
         it('should be the given one', function() {
-          expect(DummyClass.create().template).to.eql('<html>Star Wars</html>');
+          expect(DummyClass.create()().template).to.eql('<html>Star Wars</html>');
         });
 
       });
@@ -74,7 +69,7 @@ describe('Directive', function() {
       describe('@scope', function() {
 
         it('should be the given one', function() {
-          expect(DummyClass.create().scope).to.eql({ saber: 'red' });
+          expect(DummyClass.create()().scope).to.eql({ saber: 'red' });
         });
 
       });
@@ -82,7 +77,7 @@ describe('Directive', function() {
       describe('@link', function() {
 
         it('should be the given one', function() {
-          expect(DummyClass.create().link(1)).to.eql(2);
+          expect(DummyClass.create()().link(1)).to.eql(2);
         });
 
       });
@@ -90,7 +85,7 @@ describe('Directive', function() {
       describe('@replace', function() {
 
         it('should be the given one', function() {
-          expect(DummyClass.create().replace).to.be.true;
+          expect(DummyClass.create()().replace).to.be.true;
         });
 
       });
@@ -100,7 +95,7 @@ describe('Directive', function() {
         let controller;
 
         beforeEach(function() {
-          controller = DummyClass.create().controller;
+          controller = DummyClass.create()().controller;
         });
 
         it('should give back the constructor parameter names as the first items', function() {
