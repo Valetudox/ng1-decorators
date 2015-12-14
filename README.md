@@ -44,11 +44,13 @@ angular
 ```
 
 ###Created Factory Method
+```javascript
 CustomPipe.create = () => {
     return ['dep1', 'dep2', (dep1, dep2) => {
       return (new Pipe(dep1, dep2)).transform;
     }];
 };
+```
 
 
 ##Services
@@ -78,9 +80,11 @@ angular
 ```
 
 ###Created Factory Method
+```javascript
 CustomService.create = () => {
     return ['dep1', 'dep2', CustomService];
 };
+```
 
 ##Directives
 
@@ -134,6 +138,7 @@ angular
 ```
 
 ###Created Factory Method
+```javascript
 CustomDirective.create = () => {
     return () => ({
         restrict: 'E',
@@ -151,3 +156,4 @@ CustomDirective.create = () => {
         });
     };
 };
+```
