@@ -3,26 +3,6 @@
 const Directive = require('../lib/directive');
 const expect = require('chai').expect;
 
-@Directive({
-  template: `<html>Star Wars</html>`,
-  restrict: 'E',
-  scope: { saber: 'red' },
-  link: (input) => input + 1,
-  replace: true
-})
-class DummyClass {
-
-  constructor(first, second, third) {
-    this._values = [first, second, third];
-  }
-
-
-  get deps() {
-    return this._values;
-  }
-
-}
-
 describe('Directive', function() {
 
   it('should decorate the class with a static create', function() {
@@ -64,6 +44,11 @@ describe('Directive', function() {
           expect(DummyClass.create()().template).to.eql('<html>Star Wars</html>');
         });
 
+
+        it('should be undefined if not given', function() {
+          expect(DummyClassWithoutTemplate.create()()).to.not.have.property('template');
+        });
+
       });
 
       describe('@scope', function() {
@@ -78,6 +63,16 @@ describe('Directive', function() {
 
         it('should be the given one', function() {
           expect(DummyClass.create()().link(1)).to.eql(2);
+        });
+
+      });
+
+      describe('@transclude', function() {
+
+        it('should be the given one', function() {
+          expect(DummyClass.create()().transclude).to.eql({
+            slot1: 'slot1'
+          });
         });
 
       });
@@ -122,3 +117,32 @@ describe('Directive', function() {
   });
 
 });
+
+@Directive({
+  template: `<html>Star Wars</html>`,
+  restrict: 'E',
+  scope: { saber: 'red' },
+  transclude: {
+    slot1: 'slot1'
+  },
+  link: (input) => input + 1,
+  replace: true
+})
+class DummyClass {
+
+  constructor(first, second, third) {
+    this._values = [first, second, third];
+  }
+
+
+  get deps() {
+    return this._values;
+  }
+
+}
+
+@Directive({
+  restrict: 'E'
+})
+class DummyClassWithoutTemplate {
+}
