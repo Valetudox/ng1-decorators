@@ -1,6 +1,7 @@
 #Angular 1 Decorators
 
-This is a small angular decorator collection to easily separate your code from angular
+This is a small angular decorator collection to easily separate your code from angular. On the given class creates 
+a static factory method for angular. It gets the dependencies from the constructor and provide it to the angular injector. 
 
 ```bash
 npm install --save ng1-decorators
