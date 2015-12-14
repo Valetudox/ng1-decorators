@@ -20,18 +20,15 @@
   },
   "homepage": "https://github.com/Valetudox/ng1-decorators#readme",
   "dependencies": {
+    "deep-extend": "^0.4.0",
     "get-parameter-names": "^0.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.2.0",
-    "babel-plugin-transform-class-properties": "^6.3.13",
     "babel-plugin-transform-decorators": "^6.3.13",
     "babel-plugin-transform-decorators-legacy": "^1.2.0",
     "babel-preset-es2015": "^6.1.18",
-    "babel-preset-stage-0": "^6.3.13",
     "babel-preset-stage-1": "^6.3.13",
-    "babel-preset-stage-2": "^6.3.13",
-    "babel-preset-stage-3": "^6.3.13",
     "babel-register": "^6.3.13",
     "chai": "^3.4.1",
     "mocha": "^2.3.4"

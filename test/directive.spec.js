@@ -5,8 +5,26 @@ const expect = require('chai').expect;
 
 describe('Directive', function() {
 
+  let createDirective = function(options) {
+    @Directive(options)
+    class DummyClass {
+
+      constructor(first, second, third) {
+        this._values = [first, second, third];
+      }
+
+
+      get deps() {
+        return this._values;
+      }
+
+    }
+
+    return DummyClass;
+  };
+
   it('should decorate the class with a static create', function() {
-    expect(DummyClass).itself.to.respondTo('create');
+    expect(createDirective({})).itself.to.respondTo('create');
   });
 
 
@@ -14,23 +32,36 @@ describe('Directive', function() {
 
     describe('response', function() {
 
+      it('should gives back all the given options', function() {
+        let Directive = createDirective({ test1: 't1', test2: 't2' });
+        expect(Directive.create()().test1).to.eql('t1');
+        expect(Directive.create()().test2).to.eql('t2');
+      });
+
       describe('@controllerAs', function() {
 
-
         it('should be the given one', function() {
-          expect(DummyClass.create()().controllerAs).to.eql('customerControllerAs');
+          let Directive = createDirective({ controllerAs: 'customerControllerAs' });
+          expect(Directive.create()().controllerAs).to.eql('customerControllerAs');
         });
 
         it('should be `ctrl` by default', function() {
-          expect(DummyClassWithoutProperties.create()().controllerAs).to.eql('ctrl');
+          let Directive = createDirective({});
+          expect(Directive.create()().controllerAs).to.eql('ctrl');
         });
 
       });
 
       describe('@bindToController', function() {
 
-        it('should be true', function() {
-          expect(DummyClass.create()().bindToController).to.be.true;
+        it('should be the given one', function() {
+          let Directive = createDirective({ bindToController: false });
+          expect(Directive.create()().bindToController).to.be.false;
+        });
+
+        it('should be true by default', function() {
+          let Directive = createDirective({});
+          expect(Directive.create()().bindToController).to.be.true;
         });
 
       });
@@ -38,64 +69,14 @@ describe('Directive', function() {
       describe('@restrict', function() {
 
         it('should be the given one', function() {
-          expect(DummyClass.create()().restrict).to.eql('E');
-        });
-
-      });
-
-      describe('@template', function() {
-
-        it('should be the given one', function() {
-          expect(DummyClass.create()().template).to.eql('<html>Star Wars</html>');
+          let Directive = createDirective({ restrict: 'A' });
+          expect(Directive.create()().restrict).to.eql('A');
         });
 
 
-        it('should be undefined if not given', function() {
-          expect(DummyClassWithoutProperties.create()()).to.not.have.property('template');
-        });
-
-      });
-
-      describe('@require', function() {
-
-        it('should be the given one', function() {
-          expect(DummyClass.create()().require).to.eql('dependent');
-        });
-
-
-        it('should be undefined if not given', function() {
-          expect(DummyClassWithoutProperties.create()()).to.not.have.property('require');
-        });
-
-      });
-
-      describe('@scope', function() {
-
-        it('should be the given one', function() {
-          expect(DummyClass.create()().scope).to.eql({ saber: 'red' });
-        });
-
-      });
-
-      describe('@link', function() {
-
-        it('should be the given one', function() {
-          expect(DummyClass.create()().link(1)).to.eql(2);
-        });
-
-
-        it('should be empty by default', function() {
-          expect(DummyClassWithoutProperties.create()()).to.not.have.property('link');
-        });
-
-      });
-
-      describe('@transclude', function() {
-
-        it('should be the given one', function() {
-          expect(DummyClass.create()().transclude).to.eql({
-            slot1: 'slot1'
-          });
+        it('should be E by default', function() {
+          let Directive = createDirective({});
+          expect(Directive.create()().restrict).to.eql('E');
         });
 
       });
@@ -103,7 +84,14 @@ describe('Directive', function() {
       describe('@replace', function() {
 
         it('should be the given one', function() {
-          expect(DummyClass.create()().replace).to.be.true;
+          let Directive = createDirective({ replace: true });
+          expect(Directive.create()().replace).to.be.true;
+        });
+
+
+        it('should be false by default', function() {
+          let Directive = createDirective({});
+          expect(Directive.create()().replace).to.be.false;
         });
 
       });
@@ -111,9 +99,11 @@ describe('Directive', function() {
       describe('@controller', function() {
 
         let controller;
+        let Directive;
 
         beforeEach(function() {
-          controller = DummyClass.create()().controller;
+          Directive = createDirective({});
+          controller = Directive.create()().controller;
         });
 
         it('should give back the constructor parameter names as the first items', function() {
@@ -123,7 +113,7 @@ describe('Directive', function() {
 
         it(`should give back the class as the last item`, function() {
           let FactoredClass = controller.pop();
-          expect(FactoredClass).to.equal(DummyClass);
+          expect(FactoredClass).to.equal(Directive);
         });
 
 
@@ -141,31 +131,3 @@ describe('Directive', function() {
 
 });
 
-@Directive({
-  template: `<html>Star Wars</html>`,
-  restrict: 'E',
-  scope: { saber: 'red' },
-  controllerAs: 'customerControllerAs',
-  transclude: {
-    slot1: 'slot1'
-  },
-  require: 'dependent',
-  link: (input) => input + 1,
-  replace: true
-})
-class DummyClass {
-
-  constructor(first, second, third) {
-    this._values = [first, second, third];
-  }
-
-
-  get deps() {
-    return this._values;
-  }
-
-}
-
-@Directive({})
-class DummyClassWithoutProperties {
-}
