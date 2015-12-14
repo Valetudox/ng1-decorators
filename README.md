@@ -43,6 +43,14 @@ angular
     .filter('customer', CustomPipe.create());
 ```
 
+###Created Factory Method
+CustomPipe.create = () => {
+    return ['dep1', 'dep2', (dep1, dep2) => {
+      return (new Pipe(dep1, dep2)).transform;
+    }];
+};
+
+
 ##Services
 
 ###Class
@@ -69,6 +77,11 @@ angular
     .service('custom', CustomService.create());
 ```
 
+###Created Factory Method
+CustomService.create = () => {
+    return ['dep1', 'dep2', CustomService];
+};
+
 ##Directives
 
 ###Class
@@ -76,6 +89,7 @@ angular
 const Directive = require('ng1-decorators').Directive;
 
 @Directive({
+    template: '<div>hello</div>',
     scope: {
         input1: '@',
         input2: '@'
@@ -90,7 +104,6 @@ class CustomDirective {
         this._dep1 = dep1;
         this._element = null;
     }
-
 
     addElement(element) {
         this._element = element;
@@ -120,3 +133,21 @@ angular
     .directive('custom', CustomDirective.create());
 ```
 
+###Created Factory Method
+CustomDirective.create = () => {
+    return () => {
+        restrict: 'E',
+        replace: false,
+        bindToController: true,
+        controllerAs: 'ctrl',
+        controller: ['dep1', CustomDirective], 
+        template: '<div>hello</div>',
+        scope: {
+            input1: '@',
+            input2: '@'
+        },
+        link: (element, scope, attributes, ctrl) => {
+            ctrl.addElement(element);
+        }
+    };
+};
