@@ -16,8 +16,13 @@ describe('Directive', function() {
 
       describe('@controllerAs', function() {
 
-        it('should be `ctrl`', function() {
-          expect(DummyClass.create()().controllerAs).to.eql('ctrl');
+
+        it('should be the given one', function() {
+          expect(DummyClass.create()().controllerAs).to.eql('customerControllerAs');
+        });
+
+        it('should be `ctrl` by default', function() {
+          expect(DummyClassWithoutProperties.create()().controllerAs).to.eql('ctrl');
         });
 
       });
@@ -135,6 +140,7 @@ describe('Directive', function() {
   template: `<html>Star Wars</html>`,
   restrict: 'E',
   scope: { saber: 'red' },
+  controllerAs: 'customerControllerAs',
   transclude: {
     slot1: 'slot1'
   },
