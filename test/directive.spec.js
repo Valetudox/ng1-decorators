@@ -83,6 +83,11 @@ describe('Directive', function() {
           expect(DummyClass.create()().link(1)).to.eql(2);
         });
 
+
+        it('should be empty by default', function() {
+          expect(DummyClassWithoutProperties.create()()).to.not.have.property('link');
+        });
+
       });
 
       describe('@transclude', function() {
