@@ -13,6 +13,10 @@ Add Babel stage-1 to your babelrc as preset
 
 ## Filters
 
+A Filter (Pipe) class should have a transform function!
+
+###Class
+
 ```javascript
 const Pipe = require('ng1-decorators').Pipe;
 
@@ -29,14 +33,19 @@ class CustomPipe {
     }
 
 }
+```
 
+###Angular module
+
+```javascript
 angular
     .module('test', [])
     .filter('customer', CustomPipe.create());
 ```
 
-## Services
+##Services
 
+###Class
 ```javascript
 const Service = require('ng1-decorators').Service;
 
@@ -51,14 +60,18 @@ class CustomService {
     }
 
 }
+```
 
+###Angular module
+```javascript
 angular
     .module('test', [])
     .service('custom', CustomService.create());
 ```
 
-## Services
+##Directives
 
+###Class
 ```javascript
 const Directive = require('ng1-decorators').Directive;
 
@@ -88,13 +101,8 @@ class CustomDirective {
     }
 
 }
-
-angular
-    .module('test', [])
-    .directive('custom', CustomDirective.create());
 ```
-
-##Defaults
+###Defaults
 ```javascript
 {
   restrict: 'E',
@@ -103,3 +111,12 @@ angular
   controllerAs: 'ctrl'
 }
 ```
+
+
+###Angular module
+```javascript
+angular
+    .module('test', [])
+    .directive('custom', CustomDirective.create());
+```
+
