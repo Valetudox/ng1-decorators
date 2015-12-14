@@ -135,7 +135,7 @@ angular
 
 ###Created Factory Method
 CustomDirective.create = () => {
-    return () => {
+    return () => ({
         restrict: 'E',
         replace: false,
         bindToController: true,
@@ -148,6 +148,6 @@ CustomDirective.create = () => {
         },
         link: (element, scope, attributes, ctrl) => {
             ctrl.addElement(element);
-        }
+        });
     };
 };
