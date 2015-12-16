@@ -93,17 +93,13 @@ CustomService.create = () => {
 const Directive = require('ng1-decorators').Directive;
 
 @Directive({
-    template: '<div>hello</div>',
-    scope: {
-        input1: '@',
-        input2: '@'
-    },
-    link: (element, scope, attributes, ctrl) => {
-        ctrl.addElement(element);
-    }
-}
+    template: '<div>hello</div>'
 })
 class CustomDirective {
+
+    @input('@') input1;
+    @input('@') input2;
+
     constructor(dep1) {
         this._dep1 = dep1;
         this._element = null;
@@ -150,10 +146,7 @@ CustomDirective.create = () => {
         scope: {
             input1: '@',
             input2: '@'
-        },
-        link: (element, scope, attributes, ctrl) => {
-            ctrl.addElement(element);
-        });
+        }
     };
 };
 ```
